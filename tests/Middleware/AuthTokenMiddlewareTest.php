@@ -108,6 +108,26 @@ class AuthTokenMiddlewareTest extends BaseTest
         $callable($this->mockRequest, ['auth' => 'google_auth']);
     }
 
+    public function testUsesIdTokenWhenAccessTokenDoesNotExist()
+    {
+        $token = 'idtoken12345';
+        $authResult = ['id_token' => $token];
+        $this->mockFetcher
+            ->expects($this->once())
+            ->method('fetchAuthToken')
+            ->will($this->returnValue($authResult));
+        $this->mockRequest
+            ->expects($this->once())
+            ->method('withHeader')
+            ->with('authorization', 'Bearer ' . $token)
+            ->will($this->returnValue($this->mockRequest));
+
+        $middleware = new AuthTokenMiddleware($this->mockFetcher);
+        $mock = new MockHandler([new Response(200)]);
+        $callable = $middleware($mock);
+        $callable($this->mockRequest, ['auth' => 'google_auth']);
+    }
+
     public function testUsesCachedAuthToken()
     {
         $cacheKey = 'myKey';
@@ -310,6 +330,7 @@ class AuthTokenMiddlewareTest extends BaseTest
             [new MiddlewareCallback],
         ];
     }
+
 }
 
 class MiddlewareCallback
