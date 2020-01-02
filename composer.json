@@ -1,5 +1,5 @@
 {
-  "name": "google/auth",
+  "name": "firebase-php/google-auth",
   "type": "library",
   "description": "Google Auth Library for PHP",
   "keywords": ["google", "oauth2", "authentication"],
