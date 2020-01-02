@@ -58,3 +58,8 @@ script:
     else
       vendor/bin/phpunit;
     fi
+
+cache:
+  directories:
+    - vendor
+    - "$HOME/.composer/cache"
