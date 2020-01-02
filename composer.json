@@ -1,9 +1,9 @@
 {
   "name": "firebase-php/google-auth",
   "type": "library",
-  "description": "Google Auth Library for PHP",
-  "keywords": ["google", "oauth2", "authentication"],
-  "homepage": "http://github.com/google/google-auth-library-php",
+  "description": "A fork of Google Auth Library used in Firebase PHP project",
+  "keywords": ["google", "oauth2", "authentication", "firebase-php"],
+  "homepage": "http://github.com/firebase-php/google-auth",
   "license": "Apache-2.0",
   "require": {
     "php": ">=5.4",

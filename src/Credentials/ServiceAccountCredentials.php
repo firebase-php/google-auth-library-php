@@ -67,6 +67,11 @@ class ServiceAccountCredentials extends CredentialsLoader implements SignBlobInt
     protected $auth;
 
     /**
+     * @var string|null
+     */
+    private $projectId;
+
+    /**
      * Create a new ServiceAccountCredentials.
      *
      * @param string|array $scope the scope of the access request, expressed
@@ -98,6 +103,7 @@ class ServiceAccountCredentials extends CredentialsLoader implements SignBlobInt
             throw new \InvalidArgumentException(
                 'json key is missing the private_key field');
         }
+        $this->projectId = isset($jsonKey['project_id']) ? $jsonKey['project_id'] : null;
         $this->auth = new OAuth2([
             'audience' => self::TOKEN_CREDENTIAL_URI,
             'issuer' => $jsonKey['client_email'],
@@ -194,5 +200,10 @@ class ServiceAccountCredentials extends CredentialsLoader implements SignBlobInt
     public function getClientName(callable $httpHandler = null)
     {
         return $this->auth->getIssuer();
+    }
+
+    public function getProjectId()
+    {
+        return $this->projectId;
     }
 }
